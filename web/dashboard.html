@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEF - Dashboard Analítico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/gridstack@8.2.1/dist/gridstack.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .grid-stack-item-content { cursor: grab; }
+        .grid-stack-item-content:active { cursor: grabbing; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-200 min-h-screen p-6 font-sans antialiased overflow-x-hidden">
+    
+    <div id="sidebar" class="fixed inset-y-0 left-0 w-80 bg-slate-800 border-r border-slate-700 shadow-2xl transform -translate-x-full transition-transform duration-300 z-50 flex flex-col">
+        <div class="p-6 border-b border-slate-700 flex justify-between items-center">
+            <h2 class="text-lg font-bold text-cyan-400">Filtros Analíticos</h2>
+            <button id="btn-close-sidebar" class="text-slate-400 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div class="p-6 flex-1 overflow-y-auto">
+            <div class="mb-6">
+                <label class="block text-xs uppercase text-slate-400 font-semibold mb-2">Periodo de Ejecución</label>
+                <input type="month" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2 text-slate-300 focus:outline-none focus:border-cyan-500 mb-2">
+            </div>
+            <div class="mb-6">
+                <label class="block text-xs uppercase text-slate-400 font-semibold mb-2">Unidad Ejecutora</label>
+                <select class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2 text-slate-300 focus:outline-none focus:border-cyan-500">
+                    <option value="todos">Todas las Unidades</option>
+                    <option value="rrhh">Recursos Humanos (Simulado)</option>
+                    <option value="ti">Tecnología (Simulado)</option>
+                    <option value="ops">Operaciones (Simulado)</option>
+                </select>
+            </div>
+            <button id="btn-apply-filters" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-colors mt-4">
+                Aplicar Filtros
+            </button>
+        </div>
+    </div>
+
+    <header class="mb-6">
+
+        <div class="mb-4 space-y-4">    
+        <h1 class="text-3xl font-bold text-cyan-400">Ejecución Presupuestaria</h1>
+        <button id="btn-open-sidebar" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-300 px-4 py-2 rounded-lg flex items-center transition-colors">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+        </svg>
+        Filtros
+        </button>    
+        </div>
+        
+        <div class="bg-slate-800 border-l-4 border-emerald-500 p-4 rounded-r-lg shadow-lg">
+            <h2 class="text-emerald-400 font-bold mb-2 flex items-center text-sm uppercase tracking-wider">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                Resumen Ejecutivo Inteligente
+            </h2>
+            <p id="resumen-ia-text" class="text-slate-300 text-sm leading-relaxed">
+                [Lorem Ipsum] El análisis automático del archivo revela una tendencia estable...
+            </p>
+        </div>
+    </header>
+
+    <div class="grid-stack">
+        <div class="grid-stack-item" gs-x="0" gs-y="0" gs-w="3" gs-h="1">
+            <div class="grid-stack-item-content bg-slate-800 rounded-xl border border-slate-700 p-4 shadow-xl flex flex-col justify-center">
+                <span class="text-slate-400 text-xs uppercase font-semibold">Presupuesto Asignado</span>
+                <span class="text-2xl font-bold text-white mt-1">[ $0.00 ]</span>
+            </div>
+        </div>
+        <div class="grid-stack-item" gs-x="3" gs-y="0" gs-w="3" gs-h="1">
+            <div class="grid-stack-item-content bg-slate-800 rounded-xl border border-slate-700 p-4 shadow-xl flex flex-col justify-center">
+                <span class="text-slate-400 text-xs uppercase font-semibold">Gasto Devengado</span>
+                <span class="text-2xl font-bold text-white mt-1">[ $0.00 ]</span>
+            </div>
+        </div>
+        <div class="grid-stack-item" gs-x="6" gs-y="0" gs-w="3" gs-h="1">
+            <div class="grid-stack-item-content bg-slate-800 rounded-xl border border-slate-700 p-4 shadow-xl flex flex-col justify-center">
+                <span class="text-slate-400 text-xs uppercase font-semibold">Saldo Disponible</span>
+                <span class="text-2xl font-bold text-emerald-400 mt-1">[ $0.00 ]</span>
+            </div>
+        </div>
+        <div class="grid-stack-item" gs-x="9" gs-y="0" gs-w="3" gs-h="1">
+            <div class="grid-stack-item-content bg-slate-800 rounded-xl border border-slate-700 p-4 shadow-xl flex flex-col justify-center">
+                <span class="text-slate-400 text-xs uppercase font-semibold">Variación</span>
+                <span class="text-2xl font-bold text-amber-400 mt-1">[ 0.00% ]</span>
+            </div>
+        </div>
+
+        <div class="grid-stack-item" gs-x="0" gs-y="1" gs-w="4" gs-h="3">
+            <div class="grid-stack-item-content bg-slate-800 rounded-xl border border-slate-700 p-4 shadow-xl flex flex-col">
+                <h3 class="text-cyan-400 text-sm font-bold mb-2 uppercase">Porcentaje de Ejecución</h3>
+                <div class="flex-1 relative w-full h-full flex items-center justify-center">
+                    <canvas id="gaugeChart"></canvas>
+                    <div class="absolute flex flex-col items-center justify-center mt-8">
+                        <span class="text-3xl font-bold text-white">75%</span>
+                        <span class="text-xs text-slate-400">Ejecutado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-stack-item" gs-x="4" gs-y="1" gs-w="8" gs-h="3">
+            <div class="grid-stack-item-content bg-slate-800 rounded-xl border border-slate-700 p-4 shadow-xl flex flex-col">
+                <h3 class="text-cyan-400 text-sm font-bold mb-2 uppercase">Evolución y Tendencia del Gasto</h3>
+                <div class="flex-1 w-full h-full relative">
+                    <canvas id="mixedChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-stack-item" gs-x="0" gs-y="4" gs-w="12" gs-h="4">
+            <div class="grid-stack-item-content bg-slate-800 rounded-xl border border-slate-700 p-4 shadow-xl overflow-auto">
+                <h3 class="text-cyan-400 text-sm font-bold mb-4 uppercase">Matriz de Desempeño por Partida</h3>
+                <table class="w-full text-left text-sm text-slate-300">
+                    <thead>
+                        <tr class="border-b border-slate-600 text-slate-400">
+                            <th class="py-2 px-4">Código / Partida (Simulado)</th>
+                            <th class="py-2 px-4">Presupuesto Asignado</th>
+                            <th class="py-2 px-4">Gasto Devengado</th>
+                            <th class="py-2 px-4">% Ejecución</th>
+                            <th class="py-2 px-4 text-center">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dummy-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="/eel.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gridstack@8.2.1/dist/gridstack-all.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
